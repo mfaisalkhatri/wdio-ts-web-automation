@@ -1,0 +1,10 @@
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/jsonReports/
+/.env
+/.DS_Store
+/base/.DS_Store
