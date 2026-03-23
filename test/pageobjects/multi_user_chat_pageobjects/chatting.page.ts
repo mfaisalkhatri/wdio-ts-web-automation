@@ -1,6 +1,11 @@
 import Page from "./page.ts";
+import { Browser } from "webdriverio";
 
 class ChattingPage extends Page {
+  constructor(browser: Browser) {
+    super(browser);
+  }
+
   private get userJoinedMessage() {
     return $("#message-0");
   }
@@ -19,6 +24,10 @@ class ChattingPage extends Page {
   private get liveUsers() {
     return $("ul li");
   }
+    private get messageOne() {
+    return this.browser.$("#message-1");
+  }
+
 
   public async verifyUserJoinedMessage(message: string) {
     await this.userJoinedMessage.waitForExist();
@@ -44,6 +53,19 @@ class ChattingPage extends Page {
     await this.liveUsers.waitForExist();
     await this.liveUsers.waitForDisplayed();
     expect(await this.liveUsers.getText()).toContain(userinfo);
+  }
+
+  public async verifyMessages(msgNumber: number, message: string) {
+    console.log(
+      "message is: " +
+        (await this.browser.$(`#message-${msgNumber}`).getText()),
+    );
+    expect(await this.browser.$(`#message-${msgNumber}`).getText()).toBe(
+      message,
+    );
+  }
+    public async verifyNewMessage(message: string) {
+    await expect(this.messageOne).toContain(message);
   }
 
 }
