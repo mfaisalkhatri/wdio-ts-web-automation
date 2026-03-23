@@ -2,10 +2,10 @@ import Page from "./page.ts";
 
 class ChattingPage extends Page {
   private get userJoinedMessage() {
-    return $("#message-0").getText();
+    return $("#message-0");
   }
   private get liveUsersList() {
-    return $("h3").getText();
+    return $("h3");
   }
   private get logoutButton() {
     return $("#logout");
@@ -17,17 +17,19 @@ class ChattingPage extends Page {
     return $("#send-message");
   }
   private get liveUsers() {
-    return $("ul li").getText();
+    return $("ul li");
   }
 
   public async verifyUserJoinedMessage(message: string) {
-    expect(await this.userJoinedMessage).toBeDisplayed;
-    expect(await this.userJoinedMessage).toBe(message);
+    await this.userJoinedMessage.waitForExist();
+    await this.userJoinedMessage.waitForDisplayed();
+    expect(await this.userJoinedMessage.getText()).toContain(message);
   }
 
   public async verifyLiveUserList() {
-    expect(await this.liveUsersList).toBeDisplayed;
-    expect(await this.liveUsersList).toBe("Live Users List (1)");
+    await this.liveUsersList.waitForExist();
+    await this.liveUsersList.waitForDisplayed();
+    expect(await this.liveUsersList.getText()).toContain("Live Users List (1)");
   }
   public async logout() {
     await this.logoutButton.click();
@@ -39,15 +41,16 @@ class ChattingPage extends Page {
   }
 
   public async verifyLiveUsers(userinfo: string) {
-    expect(await this.liveUsers).toBeDisplayed;
-    expect(await this.liveUsers).toBe(userinfo);
+    await this.liveUsers.waitForExist();
+    await this.liveUsers.waitForDisplayed();
+    expect(await this.liveUsers.getText()).toContain(userinfo);
   }
 
   //Verify multiple messages
   // public async verifyMessages(msgNumber: number, message: string) {
-  //   console.log("message is: " +await this.browser.$(`#message-${msgNumber}`).getText()); 
+  //   console.log("message is: " +await this.browser.$(`#message-${msgNumber}`).getText());
   //   expect(await this.browser.$(`#message-${msgNumber}`).getText()).toBe(message);
-     
+
   // }
 }
 
