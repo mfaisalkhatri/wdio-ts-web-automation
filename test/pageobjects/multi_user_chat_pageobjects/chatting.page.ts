@@ -1,23 +1,31 @@
 import Page from "./page.ts";
+import { Browser } from "webdriverio";
 
 class ChattingPage extends Page {
+  constructor(browser: Browser) {
+    super(browser);
+  }
+
   private get userJoinedMessage() {
-    return $("#message-0");
+    return this.browser.$("#message-0");
   }
   private get liveUsersList() {
-    return $("h3");
+    return this.browser.$("h3");
   }
   private get logoutButton() {
-    return $("#logout");
+    return this.browser.$("#logout");
   }
   private get chatMessageBox() {
-    return $("#message");
+    return this.browser.$("#message");
   }
   private get sendButton() {
-    return $("#send-message");
+    return this.browser.$("#send-message");
   }
   private get liveUsers() {
-    return $("ul li");
+    return this.browser.$("ul li");
+  }
+  private get messageOne() {
+    return this.browser.$("#message-1");
   }
 
   public async verifyUserJoinedMessage(message: string) {
@@ -46,6 +54,17 @@ class ChattingPage extends Page {
     expect(await this.liveUsers.getText()).toContain(userinfo);
   }
 
+  public async verifyMessages(msgNumber: number, message: string) {
+    const newMessageElement = this.browser.$(`#message-${msgNumber}`);
+    await newMessageElement.waitForExist();
+    await newMessageElement.waitForDisplayed();
+    expect(await newMessageElement.getText()).toContain(message);
+  }
+  public async verifyNewMessage(message: string) {
+    await this.messageOne.waitForExist();
+    await this.messageOne.waitForDisplayed();
+    expect(await this.messageOne.getText()).toContain(message);
+  }
 }
 
 export default ChattingPage;

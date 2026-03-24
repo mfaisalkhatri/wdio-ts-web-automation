@@ -1,0 +1,24 @@
+import { config } from "../config/wdio.base.conf.ts";
+
+config.specs = ["../test/specs/test.multi-user-chat.ts"];
+config.maxInstances = 2;
+
+config.capabilities = {
+  chrome: {
+    capabilities: {
+      browserName: "chrome",
+      "goog:chromeOptions": {
+        args: ['--window-size=1280,1024'],
+      },
+    },
+  },
+  firefox: {
+    capabilities: {
+      browserName: "firefox",
+      "moz:firefoxOptions": {
+        args: ["--width=1280", "--height=720"],
+      },
+    },
+  },
+};
+exports.config = config;

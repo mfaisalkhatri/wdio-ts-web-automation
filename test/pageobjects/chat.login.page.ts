@@ -48,6 +48,7 @@ class ChatLoginPage extends Page {
         }
         await this.agreeTerms.click();
         await this.startChatButton.click();
+
     }
 
     public open() {

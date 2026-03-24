@@ -13,6 +13,7 @@
     "wdio-wait-for": "^3.1.1"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts"
+    "test:login": "wdio run config/wdio.chrome.conf.ts",
+    "test:multiuserchat": "wdio run config/wdio.multiremote.conf.ts"
   }
 }
