@@ -1,10 +1,9 @@
 import ChatLoginPage from "../pageobjects/multi_user_chat_pageobjects/chat.login.page.ts";
 import ChattingPage from "../pageobjects/multi_user_chat_pageobjects/chatting.page.ts";
 
-describe("Multi user chat test", async () => {
+describe("Multi user chat test", () => {
   let userOneLoginPage: ChatLoginPage;
   let userOneChattingPage: ChattingPage;
-
   let userTwoLoginPage: ChatLoginPage;
   let userTwoChattingPage: ChattingPage;
 
@@ -23,7 +22,7 @@ describe("Multi user chat test", async () => {
     ],
   };
 
-    const userOneDetails = {
+  const userOneDetails = {
     name: "Jane",
     location: "California",
     age: "24",
@@ -42,7 +41,7 @@ describe("Multi user chat test", async () => {
   };
   const initializeChat = async (
     loginPage: ChatLoginPage,
-    details: typeof userOneDetails
+    details: typeof userOneDetails,
   ) => {
     await loginPage.open();
     await loginPage.startChat(
@@ -50,50 +49,49 @@ describe("Multi user chat test", async () => {
       details.location,
       details.age,
       details.chatRoom,
-      details.gender
+      details.gender,
     );
   };
 
   const verifyMessages = async (
     chattingPage: ChattingPage,
     startIndex: number,
-    userPrefix: string ,
-    messages: string[]
+    userPrefix: string,
+    messages: string[],
   ) => {
     for (let i = 0; i < messages.length; i++) {
-      await chattingPage.verifyMessages(startIndex + i * 2, userPrefix+messages[i]);
+      await chattingPage.verifyMessages(
+        startIndex + i * 2,
+        userPrefix + messages[i],
+      );
     }
   };
 
   before(async () => {
-    userOneLoginPage = new ChattingPage(browser.chrome);
+    userOneLoginPage = new ChatLoginPage(browser.chrome);
     userOneChattingPage = new ChattingPage(browser.chrome);
 
     userTwoLoginPage = new ChatLoginPage(browser.firefox);
     userTwoChattingPage = new ChattingPage(browser.firefox);
   });
 
-
   it("should test two user chatting simultaneously from user one window", async () => {
-    
     await initializeChat(userOneLoginPage, userOneDetails);
-    await initializeChat(userTwoLoginPage, userTwoDetails);
-
-    
-    let userOneJoinedMessage: string = `${userOneDetails.name} (${userOneDetails.location}): ${userOneDetails.name} ${userOneDetails.age} ${userOneDetails.genderValue} has joined the chat.`;
+    const userOneJoinedMessage: string = `${userOneDetails.name} (${userOneDetails.location}): ${userOneDetails.name} ${userOneDetails.age} ${userOneDetails.genderValue} has joined the chat.`;
     await userOneChattingPage.verifyUserJoinedMessage(userOneJoinedMessage);
 
-    let userTwoJoinedMessage: string = `${userTwoDetails.name} (${userTwoDetails.location}): ${userTwoDetails.name} ${userTwoDetails.age} ${userTwoDetails.genderValue} has joined the chat.`;
+    await initializeChat(userTwoLoginPage, userTwoDetails);
+    const userTwoJoinedMessage: string = `${userTwoDetails.name} (${userTwoDetails.location}): ${userTwoDetails.name} ${userTwoDetails.age} ${userTwoDetails.genderValue} has joined the chat.`;
     await userOneChattingPage.verifyNewMessage(userTwoJoinedMessage);
-
 
     for (let i: number = 0; i < chats.userOne.length; i++) {
       await userOneChattingPage.sendMessage(chats.userOne[i]);
       await userTwoChattingPage.sendMessage(chats.userTwo[i]);
+      await browser.pause(500);
     }
 
-    let userOnePrefix: string = `${userOneDetails.name} (${userOneDetails.location}): `
-    let userTwoPrefix: string = `${userTwoDetails.name} (${userTwoDetails.location}): `
+    const userOnePrefix: string = `${userOneDetails.name} (${userOneDetails.location}): `;
+    const userTwoPrefix: string = `${userTwoDetails.name} (${userTwoDetails.location}): `;
 
     await verifyMessages(userOneChattingPage, 2, userOnePrefix, chats.userOne);
     await verifyMessages(userOneChattingPage, 3, userTwoPrefix, chats.userTwo);

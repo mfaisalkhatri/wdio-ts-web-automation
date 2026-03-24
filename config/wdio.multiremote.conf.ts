@@ -1,6 +1,6 @@
 import { config } from "../config/wdio.base.conf.ts";
 
-config.specs = ["../test/specs/test.multiremote.ts"];
+config.specs = ["../test/specs/test.multi-user-chat.ts"];
 config.maxInstances = 2;
 
 config.capabilities = {
@@ -8,7 +8,7 @@ config.capabilities = {
     capabilities: {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ['--headless', '--disable-gpu', '--window-size=1280,1024'],
+        args: ['--window-size=1280,1024'],
       },
     },
   },
@@ -16,7 +16,7 @@ config.capabilities = {
     capabilities: {
       browserName: "firefox",
       "moz:firefoxOptions": {
-        args: ['--headless',"--width=1280", "--height=720"],
+        args: ["--width=1280", "--height=720"],
       },
     },
   },

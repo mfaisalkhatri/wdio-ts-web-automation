@@ -7,27 +7,26 @@ class ChattingPage extends Page {
   }
 
   private get userJoinedMessage() {
-    return $("#message-0");
+    return this.browser.$("#message-0");
   }
   private get liveUsersList() {
-    return $("h3");
+    return this.browser.$("h3");
   }
   private get logoutButton() {
-    return $("#logout");
+    return this.browser.$("#logout");
   }
   private get chatMessageBox() {
-    return $("#message");
+    return this.browser.$("#message");
   }
   private get sendButton() {
-    return $("#send-message");
+    return this.browser.$("#send-message");
   }
   private get liveUsers() {
-    return $("ul li");
+    return this.browser.$("ul li");
   }
-    private get messageOne() {
+  private get messageOne() {
     return this.browser.$("#message-1");
   }
-
 
   public async verifyUserJoinedMessage(message: string) {
     await this.userJoinedMessage.waitForExist();
@@ -56,18 +55,16 @@ class ChattingPage extends Page {
   }
 
   public async verifyMessages(msgNumber: number, message: string) {
-    console.log(
-      "message is: " +
-        (await this.browser.$(`#message-${msgNumber}`).getText()),
-    );
-    expect(await this.browser.$(`#message-${msgNumber}`).getText()).toBe(
-      message,
-    );
+    const newMessageElement = this.browser.$(`#message-${msgNumber}`);
+    await newMessageElement.waitForExist();
+    await newMessageElement.waitForDisplayed();
+    expect(await newMessageElement.getText()).toContain(message);
   }
-    public async verifyNewMessage(message: string) {
-    await expect(this.messageOne).toContain(message);
+  public async verifyNewMessage(message: string) {
+    await this.messageOne.waitForExist();
+    await this.messageOne.waitForDisplayed();
+    expect(await this.messageOne.getText()).toContain(message);
   }
-
 }
 
 export default ChattingPage;

@@ -1,4 +1,3 @@
-import { browser } from "@wdio/globals";
 import {Browser} from 'webdriverio';
 
 export default class Page {
@@ -8,7 +7,8 @@ export default class Page {
     this.browser = browser;
   }
 
-  public open() {
-    return browser.url(`http://localhost:3000/`);
+  open(path: string) {
+    return this.browser.url(path);
   }
+
 }
