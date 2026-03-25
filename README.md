@@ -50,7 +50,7 @@ This repo covers the following test journey as a part of End to End Testing
 ## :thought_balloon: Checkout the blogs related to Testing written by me on the following links:
 
 - [Medium Blogs](https://medium.com/@iamfaisalkhatri)
-- [LambdaTest Blogs](https://www.lambdatest.com/blog/author/mfaisalkhatri/)
+- [TestMu AI Blogs](https://www.testmuai.com/learning-hub/author/faisal-khatri/)
 - [My Website](https://mfaisalkhatri.github.io)
 
 ### :bookmark: Checkout videos related to Software Testing and Test automation tools on [Testing Talks with Faisal Khatri](https://www.youtube.com/@faisalkhatriqa)
