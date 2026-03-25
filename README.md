@@ -24,12 +24,11 @@ This repo covers the following test journey as a part of End to End Testing
 
 - Start the Live Chat Playground application using Docker:
  
- - `cd docker-files`
- - `docker compose -f docker-compose-chat-playground.yml up -d`
+  - `cd docker-files`
+  - `docker compose -f docker-compose-chat-playground.yml up -d`
 
 - Run the following command in the terminal
 
-  ### 1. Running tests in local:
     -  `npm run test:login` >> Tests will run on Chrome browser on local machine
     -  `npm run test:multiuserchat` >> This will run the multi user chat
 
