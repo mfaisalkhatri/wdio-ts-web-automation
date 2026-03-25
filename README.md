@@ -22,10 +22,20 @@ This repo covers the following test journey as a part of End to End Testing
   
   - `npm install`
 
+- Start the Live Chat Playground application using Docker:
+ 
+ - `cd docker-files`
+ - `docker compose -f docker-compose-chat-playground.yml up -d`
+
 - Run the following command in the terminal
 
   ### 1. Running tests in local:
-    -  `npm run wdio` >> Tests will run on Chrome browser on local machine
+    -  `npm run test:login` >> Tests will run on Chrome browser on local machine
+    -  `npm run test:multiuserchat` >> This will run the multi user chat
+
+## :writing_hand: Blog Links
+- [WebdriverIO+TypeScript Tutorial: Automating a Login Page](https://medium.com/gitconnected/webdriverio-typescript-tutorial-automating-a-login-page-a31779c6201a)
+- [WebdriverIO + TypeScript Tutorial: How to Automate a Chat Application](https://medium.com/gitconnected/webdriverio-typescript-tutorial-how-to-automate-a-chat-application-0333868c019d)
 
 ## :question: Need Assistance?
 
